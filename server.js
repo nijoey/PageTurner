@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var assert = require('assert');
+var books = require('google-books-search');
 var MongoClient = require('mongodb').MongoClient
 app.use(bodyParser.json());
 app.use(express.static('.'));
@@ -12,12 +13,37 @@ var password;
 var user;
 var pwd;
 var URL = 'mongodb://127.0.0.1:27017/data3'
+var URL1 = 'mongodb://localhost:27017/mydatabase'
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/" + "home.html");
 });
 
+bookname = "stephen king";
+console.log(bookname);
+books.search(bookname, function(error, results) {
+    if (!error) {
+        console.log(results);
+        var booklist = results;
+        MongoClient.connect(URL1, function(err, db) {
+            if (err) return
+            var collection = db.collection('books')
+            collection.insert(booklist, function(err, result) {
+                if (!err) {
+                    collection.find({}).toArray(function(err, docs) {
+                        console.log(docs)
+                            //db.close()
+                    });
+                } else {
+                    console.log(err);
+                }
+            });
+        });
 
+    } else {
+        console.log(error);
+    }
+});
  MongoClient.connect(URL, function(err, db) {
  app.post('/Signup', function(req, response) {
 

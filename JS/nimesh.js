@@ -1,57 +1,57 @@
-var main = function() {
+var main = function () {
 
-var username;
+    var username;
 
-    $("#loginmodal").on("click", function() {
-         alert("Value: " + $("#loginmodal").val());
+    $("#loginmodal").on("click", function () {
+        alert("Value: " + $("#loginmodal").val());
 
         $('#modal2').openModal();
-        $("#log").on("click", function() {
+        $("#log").on("click", function () {
             login();
         });
 
     });
 
-    $("#newusermodal").on("click", function() {
+    $("#newusermodal").on("click", function () {
 
         $('#modal1').openModal();
-        $("#reg").on("click", function() {
+        $("#reg").on("click", function () {
             signup();
         });
 
     });
 
-    $('#profile').on("click", function(){
-      $('#homeContent').addClass('hide');
-      $('#personalDetails').removeClass('hide');
+    $('#profile').on("click", function () {
+        $('#homeContent').addClass('hide');
+        $('#personalDetails').removeClass('hide');
     });
 
-    $('#editFname').on("click", function(){
-      $('#fNameTxt').addClass("hide");
-      $('#fNamDiv').removeClass("hide");
+    $('#editFname').on("click", function () {
+        $('#fNameTxt').addClass("hide");
+        $('#fNamDiv').removeClass("hide");
     });
 
-    $('#editLname').on("click", function(){
-      $('#lNameTxt').addClass("hide");
-      $('#LNamDiv').removeClass("hide");
+    $('#editLname').on("click", function () {
+        $('#lNameTxt').addClass("hide");
+        $('#LNamDiv').removeClass("hide");
     });
 
-    $('#editAbtMe').on("click", function(){
-      $('#abtMeTxt').addClass("hide");
-      $('#abtMeDiv').removeClass("hide");
+    $('#editAbtMe').on("click", function () {
+        $('#abtMeTxt').addClass("hide");
+        $('#abtMeDiv').removeClass("hide");
     });
 
-    $('#editFavBok').on("click", function(){
-      $('#favBokTxt').addClass("hide");
-      $('#favBokDiv').removeClass("hide");
+    $('#editFavBok').on("click", function () {
+        $('#favBokTxt').addClass("hide");
+        $('#favBokDiv').removeClass("hide");
     });
 
-    $(".dropdown-button").dropdown({hover: false});
+    $(".dropdown-button").dropdown({ hover: false });
 
 };
 
-$('#save').on("click", function(){
-  updateUsrDetails(username);
+$('#save').on("click", function () {
+    updateUsrDetails(username);
 });
 
 function signup() {
@@ -76,11 +76,11 @@ function signup() {
         dataType: "json",
         contentType: "Application/Json",
         data: JSON.stringify(j),
-        success: function(data) {
+        success: function (data) {
             console.log(data.Attempt);
             if (data.Attempt === "success") {
                 alert("Attempt : Sucessfully Registered");
-               $('#modal1').closeModal();
+                $('#modal1').closeModal();
                 console.log("SUCCESS");
                 $('#newusermodal, #loginmodal').addClass('hide');
                 $('#usernameTitleBar').text(name);
@@ -95,7 +95,7 @@ function signup() {
 
 
         },
-        failure: function(errMsg) {
+        failure: function (errMsg) {
             alert(errMsg);
         }
     });
@@ -118,7 +118,7 @@ function login() {
         dataType: "json",
         contentType: "Application/Json",
         data: JSON.stringify(j),
-        success: function(data) {
+        success: function (data) {
 
             console.log(data.Attempt);
             if (data.Attempt == "success") {
@@ -136,75 +136,90 @@ function login() {
                 console.log(" Login Failed");
             }
         },
-        failure: function(errMsg) {
+        failure: function (errMsg) {
             alert(errMsg);
         }
     });
 }
 
-function getUserDetails(username){
-  var obj = JSON.parse('{"username":"'+username+'"}');
+function getUserDetails(username) {
+    var obj = JSON.parse('{"username":"' + username + '"}');
 
-  $.ajax({
-          url:'http://localhost:3000/userinfo/'+username,
-          type: 'GET',
-          dataType : "JSON",
-          contentType : "Application/json",
-          success: function(data){
-             if(data != ""){
-               var firstName = data.Attempt.firstname;
-               var lastName = data.Attempt.lastname;
-               var userName = data.Attempt.username;
-               var email = data.Attempt.email;
-               var abtMe = data.Attempt.aboutme;
-               var favBok = data.Attempt.favourite;
+    $.ajax({
+        url: 'http://localhost:3000/userinfo/' + username,
+        type: 'GET',
+        dataType: "JSON",
+        contentType: "Application/json",
+        success: function (data) {
+            if (data != "") {
+                var firstName = data.Attempt.firstname;
+                var lastName = data.Attempt.lastname;
+                var userName = data.Attempt.username;
+                var email = data.Attempt.email;
+                var abtMe = data.Attempt.aboutme;
+                var favBok = data.Attempt.favourite;
 
-               $('#fNameTxt').text(firstName);
-               $('#fName').val(firstName);
-               $('#lNameTxt').text(lastName);
-               $('#lName').val(lastName);
-               $('#uNameTxt').text(userName);
-               $('#eMailTxt').text(email);
-               $('#abtMeTxt').text(abtMe);
-               $('#aboutMe').val(abtMe);
-               $('#favBokTxt').text(favBok);
-               $('#favBok').val(favBok);
+                $('#fNameTxt').text(firstName);
+                $('#fName').val(firstName);
+                $('#lNameTxt').text(lastName);
+                $('#lName').val(lastName);
+                $('#uNameTxt').text(userName);
+                $('#eMailTxt').text(email);
+                $('#abtMeTxt').text(abtMe);
+                $('#aboutMe').val(abtMe);
+                $('#favBokTxt').text(favBok);
+                $('#favBok').val(favBok);
 
-             }
-           },
-          error: function(error) {
-                console.log("Error getUserDetails!!");
-          }
-      });
+            }
+        },
+        error: function (error) {
+            console.log("Error getUserDetails!!");
+        }
+    });
 }
 
-function updateUsrDetails(username){
-  alert("updateUsrDetails:"+username);
-  var firstName = $('#fName').val();
-  var lastName = $('#lName').val();
-  var userName = $('#uNameTxt').val();
-  var email = $('#eMailTxt').val();
-  var abtMe = $('#aboutMe').val();
-  var favBok = $('#favBok').val();
-  var obj = JSON.parse('{"firstname" : "'+firstName+'","lastname" : "'+lastName+'","aboutme" : "'+abtMe+'","favourite" : "'+favBok+'"}');
+function updateUsrDetails(username) {
+    alert("updateUsrDetails:" + username);
+    var firstName = $('#fName').val();
+    var lastName = $('#lName').val();
+    var userName = $('#uNameTxt').val();
+    var email = $('#eMailTxt').val();
+    var abtMe = $('#aboutMe').val();
+    var favBok = $('#favBok').val();
+    var obj = JSON.parse('{"firstname" : "' + firstName + '","lastname" : "' + lastName + '","aboutme" : "' + abtMe + '","favourite" : "' + favBok + '"}');
 
-  $.ajax({
-          url:'http://localhost:3000/update/'+username,
-          type: 'POST',
-          datatype : "json",
-          contentType : "Application/Json",
-          data: JSON.stringify(obj),
-          success: function(data){
-           },
-          error: function(error) {
-          }
-      });
+    $.ajax({
+        url: 'http://localhost:3000/update/' + username,
+        type: 'POST',
+        datatype: "json",
+        contentType: "Application/Json",
+        data: JSON.stringify(obj),
+        success: function (data) {
+        },
+        error: function (error) {
+        }
+    });
 
 }
-
-$(document).ready(function() {
+function favBooks() {
+    $("#mainDiv").addClass("hide");
+}
+function booksList() {
+    $("#mainDiv").removeClass("hide");
+}
+function genresType() {
+    $("#mainDiv").removeClass("hide");
+}
+function people() {
+    $("#mainDiv").removeClass("hide");
+}
+$(document).ready(function () {
     main();
+    $("#mainDiv").addClass("show");
     $('.slider').slider({
         full_width: false
-      });
+    });
+    $('.collapsible').collapsible({
+        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
 });
