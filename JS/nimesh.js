@@ -204,4 +204,7 @@ function updateUsrDetails(username){
 
 $(document).ready(function() {
     main();
+    $('.slider').slider({
+        full_width: false
+      });
 });
