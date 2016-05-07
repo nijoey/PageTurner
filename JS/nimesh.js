@@ -231,7 +231,7 @@ function booksList(status) {
     }
     else{
         // When cookie is implemented make sure you check for that value
-    alert("joshi");
+    
      $("#test1").addClass("hide");
      $("#mainDiv").removeClass("hide");
     }
