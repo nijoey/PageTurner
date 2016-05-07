@@ -259,11 +259,12 @@ function booksList(status) {
             var str = "";
             for (var i = 0; i < response.items.length; i++) {
                 var item = response.items[i];
+                var itemm = "ntiesh";
                 str += "<li><div class=\"collapsible-header\">";
                 if (item.volumeInfo.title) {
                     str += item.volumeInfo.title;
                 }
-                str += "</div><div class=\"collapsible-body\"><p><img class=\"materialboxed\" width=\"200\"";
+                str += "</div><div class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
 
                 if (item.volumeInfo.imageLinks) {
@@ -271,9 +272,22 @@ function booksList(status) {
                 } else {
                     str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
                 }
-                str += "</p></div></li>";
+                str += "<p id=\"desc\">";
+                if(item.volumeInfo.description) {
+                    str += item.volumeInfo.description;
+                } else {
+                    str += "No Description";
+                }
+                if(item.id) {
+                    str += item.volumeInfo.description;
+                } else {
+                    str += "No Description";
+                }
+                str += "</p><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
             }
+            console.log(str);
             $("#test1 .collapsible").append(str);
+            // onclick=\"addBook(\"" +item.id+ "\");\" 
             //  $('.collapsible').collapsible();
             //  setTimeout(function(){
             //      $('.collapsible').collapsible({
@@ -287,6 +301,9 @@ function booksList(status) {
         $("#test1").addClass("hide");
         $("#mainDiv").removeClass("hide");
     }
+}
+function addBook(){
+    alert("kaboom");
 }
 $(document).ready(function () {
     main();
