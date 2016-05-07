@@ -93,6 +93,86 @@ function checkCookie() {
 
 
 
+//search code
+document.getElementById('search').addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            var bookname = $('#search').val();
+            var obj = JSON.parse('{"bookname" :"' + bookname+ '"}');
+
+    $.ajax({
+            url: "http://localhost:3000/books",
+            type: "POST",
+            dataType: "json",
+            contentType: "Application/Json",
+            data: JSON.stringify(obj),
+            success: function (data) {
+            console.log(data);
+            if (data!=null) {
+                
+                console.log("SUCCESS");
+                
+                console.log(data);
+                $( "#list" ).empty();
+                $("#test1 .collapsible").empty();
+                $("#test1").removeClass("hide");
+                $("#mainDiv").addClass("hide");
+                var str = "";
+                for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                //var itemm = "ntiesh";
+                str += "<li><div class=\"collapsible-header\">";
+                if (item.title) {
+                    str += item.title;
+                }
+                str += "</div><div class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
+
+                if (item.thumbnail) {
+                    str += "src=" + item.thumbnail + ">";
+                } else {
+                    str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
+                }
+                str += "<p id=\"desc\">";
+                if(item.description) {
+                    str += item.description;
+                } else {
+                    str += "No Description";
+                }
+                if(item.id) {
+                    str += item.description;
+                } else {
+                    str += "No Description";
+                }
+                str += "</p><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+            }
+            console.log(str);
+            $("#test1 .collapsible").append(str);
+            // onclick=\"addBook(\"" +item.id+ "\");\" 
+            //  $('.collapsible').collapsible();
+            //  setTimeout(function(){
+            //      $('.collapsible').collapsible({
+            //         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            //     });
+            //  },1000);
+
+                
+                
+            } else {
+                console.log("FAILURE");
+            }
+        },
+        failure: function (errMsg) {
+        }
+    });
+
+        }
+    });
+
+
+
+
+
 
 
 
