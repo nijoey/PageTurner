@@ -53,6 +53,51 @@ $('#save').on("click", function () {
     updateUsrDetails(username);
 });
 
+
+
+
+
+
+
+ function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (1 * 1 * 1 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+function checkCookie() {
+    var user = getCookie("username");
+    if (user != "") {
+        alert("Welcome again " + user);
+    } else {
+       
+            setCookie("username", nimesh, 365);
+        }
+}
+
+
+
+
+
+
+
+
+
 function signup() {
     var fname = document.getElementById("firstName").value;
     var lname = document.getElementById("lastName").value;
@@ -78,6 +123,10 @@ function signup() {
         success: function (data) {
             console.log(data.Attempt);
             if (data.Attempt === "success") {
+                
+                setCookie("username",name,1);
+               
+                checkCookie();
                 $('#modal1').closeModal();
                 console.log("SUCCESS");
                 $('#newusermodal, #loginmodal').addClass('hide');
@@ -114,6 +163,11 @@ function login() {
             console.log(data.Attempt);
             if (data.Attempt == "success") {
                 alert("Succesfully Logged In");
+                
+                setCookie("username",name,1);
+                
+               
+                checkCookie();
                 $('#modal2').closeModal();
                 //$("#loginmodal").text("Signout");
                 $('#newusermodal, #loginmodal').addClass('hide');
@@ -121,7 +175,6 @@ function login() {
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
                 console.log("Success");
-                booksList("Success");
             }
             else {
                 alert("Login Failed");
@@ -195,6 +248,7 @@ function updateUsrDetails(username) {
 function favBooks() {
     $("#mainDiv").addClass("hide");
 }
+<<<<<<< HEAD
 function booksList(status) {
         if(status == "Success"){
       $("#test1").removeClass("hide");
@@ -235,6 +289,10 @@ function booksList(status) {
      $("#test1").addClass("hide");
      $("#mainDiv").removeClass("hide");
     }
+=======
+function booksList() {
+    $("#mainDiv").removeClass("hide");
+>>>>>>> f2493218e79d0c073e37c385a0440f8a15f21f62
 }
 function genresType() {
     $("#mainDiv").removeClass("hide");
@@ -244,12 +302,13 @@ function people() {
 }
 $(document).ready(function () {
     main();
-    $("#test1").addClass("hide");   
+    
+    
+  //  $("#mainDiv").addClass("show");
     $('.slider').slider({
         full_width: false
     });
-    $('.materialboxed').materialbox();
-     $('.collapsible').collapsible({
-                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
+    $('.collapsible').collapsible({
+        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
 });

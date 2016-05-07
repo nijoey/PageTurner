@@ -1,59 +1,102 @@
-var username;
 var main = function () {
 
+    var username;
+
     $("#loginmodal").on("click", function () {
+
         $('#modal2').openModal();
         $("#log").on("click", function () {
             login();
         });
+
     });
 
     $("#newusermodal").on("click", function () {
+
         $('#modal1').openModal();
         $("#reg").on("click", function () {
             signup();
         });
     });
 
-    $('#profile').on("click", function(){
-      $('#homeContent').addClass('hide');
-      $('#personalDetails').removeClass('hide');
+    $('#profile').on("click", function () {
+        $('#homeContent').addClass('hide');
+        $("#mainDiv").removeClass("hide");
+        $('#personalDetails').removeClass('hide');
     });
 
-    $('#backProfile').on("click", function(){
-      $('#personalDetails').addClass('hide');
-      $('#homeContent').removeClass('hide');
+    $('#editFname').on("click", function () {
+        $('#fNameTxt').addClass("hide");
+        $('#fNamDiv').removeClass("hide");
     });
 
-
-    $('#editFname').on("click", function(){
-      $('#fNameTxt').addClass("hide");
-      $('#fNamDiv').removeClass("hide");
-      $('#save').removeClass("disabled");
+    $('#editLname').on("click", function () {
+        $('#lNameTxt').addClass("hide");
+        $('#LNamDiv').removeClass("hide");
     });
 
-    $('#editLname').on("click", function(){
-      $('#lNameTxt').addClass("hide");
-      $('#LNamDiv').removeClass("hide");
-      $('#save').removeClass("disabled");
+    $('#editAbtMe').on("click", function () {
+        $('#abtMeTxt').addClass("hide");
+        $('#abtMeDiv').removeClass("hide");
     });
 
-    $('#editAbtMe').on("click", function(){
-      $('#abtMeTxt').addClass("hide");
-      $('#abtMeDiv').removeClass("hide");
-      $('#save').removeClass("disabled");
+    $('#editFavBok').on("click", function () {
+        $('#favBokTxt').addClass("hide");
+        $('#favBokDiv').removeClass("hide");
     });
 
-    $('#editFavBok').on("click", function(){
-      $('#favBokTxt').addClass("hide");
-      $('#favBokDiv').removeClass("hide");
-      $('#save').removeClass("disabled");
-    });
+    $(".dropdown-button").dropdown({ hover: false });
+
 };
 
 $('#save').on("click", function () {
     updateUsrDetails(username);
 });
+
+
+
+
+
+
+
+ function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (1 * 1 * 1 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+function checkCookie() {
+    var user = getCookie("username");
+    if (user != "") {
+        alert("Welcome again " + user);
+    } else {
+       
+            setCookie("username", nimesh, 365);
+        }
+}
+
+
+
+
+
+
+
+
 
 function signup() {
     var fname = document.getElementById("firstName").value;
@@ -80,23 +123,22 @@ function signup() {
         success: function (data) {
             console.log(data.Attempt);
             if (data.Attempt === "success") {
-                alert("Attempt : Sucessfully Registered");
+                
+                setCookie("username",name,1);
+               
+                checkCookie();
                 $('#modal1').closeModal();
                 console.log("SUCCESS");
                 $('#newusermodal, #loginmodal').addClass('hide');
+                $('#usernameTitleBar').text(name);
+                //$('#usernameTitleBar').append("<i class='material-icons right'>arrow_drop_down</i>");
                 $('#usernameTitleBar').removeClass('hide');
-                $('#usernameTitleBar').append(name);
                 getUserDetails(name);
             } else {
-                alert("Attempt : Username Already Exists");
                 console.log("FAILURE");
-
             }
-
-
         },
         failure: function (errMsg) {
-            alert(errMsg);
         }
     });
 
@@ -108,10 +150,8 @@ function login() {
     var j = JSON.parse('{"username":"' + name + '","password":"' + pwd + '"}');
     console.log(j);
     username = name;
-    $('#siuserName').val("");
+    $('#siuserName').val("   ");
     $("#sipassword").val("");
-
-
     $.ajax({
         url: "http://localhost:3000/login",
         type: "POST",
@@ -123,9 +163,15 @@ function login() {
             console.log(data.Attempt);
             if (data.Attempt == "success") {
                 alert("Succesfully Logged In");
+                
+                setCookie("username",name,1);
+                
+               
+                checkCookie();
                 $('#modal2').closeModal();
+                //$("#loginmodal").text("Signout");
                 $('#newusermodal, #loginmodal').addClass('hide');
-                $('#usernameTitleBar').append(username);
+                $('#usernameTitleBar').text(username);
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
                 console.log("Success");
@@ -143,7 +189,6 @@ function login() {
 
 function getUserDetails(username) {
     var obj = JSON.parse('{"username":"' + username + '"}');
-
     $.ajax({
         url: 'http://localhost:3000/userinfo/' + username,
         type: 'GET',
@@ -164,25 +209,10 @@ function getUserDetails(username) {
                 $('#lName').val(lastName);
                 $('#uNameTxt').text(userName);
                 $('#eMailTxt').text(email);
-
-
-                if(abtMe == " "){
-                  $('#abtMeTxt').text("Tell us about yourself...");
-                  $('#abtMeTxt').css({"color" : "grey"});
-                }
-                else{
-                  $('#abtMeTxt').text(abtMe);
-                  $('#aboutMe').val(abtMe);
-                }
-
-                if(favBok == " "){
-                  $('#favBokTxt').text("What are your favorite reads...?");
-                  $('#favBokTxt').css({"color" : "grey"});
-                }
-                else{
-                  $('#favBokTxt').text(favBok);
-                  $('#favBok').val(favBok);
-                }
+                $('#abtMeTxt').text(abtMe);
+                $('#aboutMe').val(abtMe);
+                $('#favBokTxt').text(favBok);
+                $('#favBok').val(favBok);
 
             }
         },
@@ -193,6 +223,7 @@ function getUserDetails(username) {
 }
 
 function updateUsrDetails(username) {
+    alert("updateUsrDetails:" + username);
     var firstName = $('#fName').val();
     var lastName = $('#lName').val();
     var userName = $('#uNameTxt').val();
@@ -208,24 +239,8 @@ function updateUsrDetails(username) {
         contentType: "Application/Json",
         data: JSON.stringify(obj),
         success: function (data) {
-          $('#fNameTxt').text(firstName);
-          $('#fName').addClass('hide');
-          $('#fNameTxt').removeClass('hide');
-          $('#lNameTxt').text(lastName);
-          $('#lName').addClass('hide');
-          $('#lNameTxt').removeClass('hide');
-          $('#abtMeTxt').text(abtMe);
-          $('#aboutMe').addClass('hide');
-          $('#abtMeTxt').removeClass('hide');
-          $('#favBokTxt').text(favBok);
-          $('#favBok').addClass('hide');
-          $('#favBokTxt').removeClass('hide');
-          $('.banner').removeClass('hide');
-          $('.banner').css({"font-size": "1.3rem", "color": "#2bbbad", "text-align":"center"});
-          $('.banner').delay(7000).fadeOut('slow');
         },
         error: function (error) {
-          console.log("error updateUsrDetails");
         }
     });
 
@@ -244,7 +259,9 @@ function people() {
 }
 $(document).ready(function () {
     main();
-    $("#mainDiv").addClass("show");
+    
+    
+  //  $("#mainDiv").addClass("show");
     $('.slider').slider({
         full_width: false
     });
