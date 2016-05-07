@@ -3,7 +3,6 @@ var main = function () {
     var username;
 
     $("#loginmodal").on("click", function () {
-        alert("Value: " + $("#loginmodal").val());
 
         $('#modal2').openModal();
         $("#log").on("click", function () {
@@ -79,7 +78,6 @@ function signup() {
         success: function (data) {
             console.log(data.Attempt);
             if (data.Attempt === "success") {
-                alert("Attempt : Sucessfully Registered");
                 $('#modal1').closeModal();
                 console.log("SUCCESS");
                 $('#newusermodal, #loginmodal').addClass('hide');
@@ -88,12 +86,10 @@ function signup() {
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
             } else {
-                alert("Attempt : Username Already Exists");
                 console.log("FAILURE");
             }
         },
         failure: function (errMsg) {
-            alert(errMsg);
         }
     });
 
