@@ -9,8 +9,6 @@ console.log(bookname);
 books.search(bookname, function(error, results) {
     if (!error) {
         console.log(results);
-
-
         var booklist = results;
         MongoClient.connect(URL1, function(err, db) {5
             if (err) return

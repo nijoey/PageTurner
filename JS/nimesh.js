@@ -18,11 +18,11 @@ var main = function () {
         $("#reg").on("click", function () {
             signup();
         });
-
     });
 
     $('#profile').on("click", function () {
         $('#homeContent').addClass('hide');
+        $("#mainDiv").removeClass("hide");
         $('#personalDetails').removeClass('hide');
     });
 
@@ -90,10 +90,7 @@ function signup() {
             } else {
                 alert("Attempt : Username Already Exists");
                 console.log("FAILURE");
-
             }
-
-
         },
         failure: function (errMsg) {
             alert(errMsg);
@@ -110,8 +107,6 @@ function login() {
     username = name;
     $('#siuserName').val("   ");
     $("#sipassword").val("");
-
-
     $.ajax({
         url: "http://localhost:3000/login",
         type: "POST",
@@ -144,7 +139,6 @@ function login() {
 
 function getUserDetails(username) {
     var obj = JSON.parse('{"username":"' + username + '"}');
-
     $.ajax({
         url: 'http://localhost:3000/userinfo/' + username,
         type: 'GET',
@@ -215,7 +209,7 @@ function people() {
 }
 $(document).ready(function () {
     main();
-    $("#mainDiv").addClass("show");
+  //  $("#mainDiv").addClass("show");
     $('.slider').slider({
         full_width: false
     });
