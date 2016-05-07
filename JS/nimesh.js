@@ -53,6 +53,51 @@ $('#save').on("click", function () {
     updateUsrDetails(username);
 });
 
+
+
+
+
+
+
+ function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (1 * 1 * 1 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+function checkCookie() {
+    var user = getCookie("username");
+    if (user != "") {
+        alert("Welcome again " + user);
+    } else {
+       
+            setCookie("username", nimesh, 365);
+        }
+}
+
+
+
+
+
+
+
+
+
 function signup() {
     var fname = document.getElementById("firstName").value;
     var lname = document.getElementById("lastName").value;
@@ -78,6 +123,10 @@ function signup() {
         success: function (data) {
             console.log(data.Attempt);
             if (data.Attempt === "success") {
+                
+                setCookie("username",name,1);
+               
+                checkCookie();
                 $('#modal1').closeModal();
                 console.log("SUCCESS");
                 $('#newusermodal, #loginmodal').addClass('hide');
@@ -114,6 +163,11 @@ function login() {
             console.log(data.Attempt);
             if (data.Attempt == "success") {
                 alert("Succesfully Logged In");
+                
+                setCookie("username",name,1);
+                
+               
+                checkCookie();
                 $('#modal2').closeModal();
                 //$("#loginmodal").text("Signout");
                 $('#newusermodal, #loginmodal').addClass('hide');
@@ -121,7 +175,6 @@ function login() {
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
                 console.log("Success");
-                booksList("Success");
             }
             else {
                 alert("Login Failed");
@@ -195,46 +248,8 @@ function updateUsrDetails(username) {
 function favBooks() {
     $("#mainDiv").addClass("hide");
 }
-function booksList(status) {
-        if(status == "Success"){
-      $("#test1").removeClass("hide");
-      $("#mainDiv").addClass("hide");
-      var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter+stephen+king";
-      $.getJSON(googleAPI, function (response) {
-         // console.log("JSON Data: " + JSON.stringify(response.items[0]));
-          var str = "";
-          for (var i = 0; i < response.items.length; i++) {
-                var item = response.items[i];
-                str += "<li><div class=\"collapsible-header\">";
-                if(item.volumeInfo.title){
-                    str += item.volumeInfo.title;
-                }  
-                str+= "</div><div class=\"collapsible-body\"><p><img class=\"materialboxed\" width=\"200\"";
-                // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
-                
-                if(item.volumeInfo.imageLinks){
-                     str += "src="+item.volumeInfo.imageLinks.thumbnail+">";
-                }else{
-                     str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
-                } 
-                str+= "</p></div></li>";
-         }
-        //  console.log(str);
-         $("#test1 .collapsible").append(str);
-        //  $('.collapsible').collapsible();
-        //  setTimeout(function(){
-        //      $('.collapsible').collapsible({
-        //         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-        //     });
-        //  },1000);
-      });
-    }
-    else{
-        // When cookie is implemented make sure you check for that value
-    alert("joshi");
-     $("#test1").addClass("hide");
-     $("#mainDiv").removeClass("hide");
-    }
+function booksList() {
+    $("#mainDiv").removeClass("hide");
 }
 function genresType() {
     $("#mainDiv").removeClass("hide");
@@ -244,12 +259,13 @@ function people() {
 }
 $(document).ready(function () {
     main();
-    $("#test1").addClass("hide");   
+    
+    
+  //  $("#mainDiv").addClass("show");
     $('.slider').slider({
         full_width: false
     });
-    $('.materialboxed').materialbox();
-     $('.collapsible').collapsible({
-                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
+    $('.collapsible').collapsible({
+        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
 });
