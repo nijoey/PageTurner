@@ -121,6 +121,7 @@ function login() {
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
                 console.log("Success");
+                booksList("Success");
             }
             else {
                 alert("Login Failed");
@@ -194,8 +195,46 @@ function updateUsrDetails(username) {
 function favBooks() {
     $("#mainDiv").addClass("hide");
 }
-function booksList() {
-    $("#mainDiv").removeClass("hide");
+function booksList(status) {
+        if(status == "Success"){
+      $("#test1").removeClass("hide");
+      $("#mainDiv").addClass("hide");
+      var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter+stephen+king";
+      $.getJSON(googleAPI, function (response) {
+         // console.log("JSON Data: " + JSON.stringify(response.items[0]));
+          var str = "";
+          for (var i = 0; i < response.items.length; i++) {
+                var item = response.items[i];
+                str += "<li><div class=\"collapsible-header\">";
+                if(item.volumeInfo.title){
+                    str += item.volumeInfo.title;
+                }  
+                str+= "</div><div class=\"collapsible-body\"><p><img class=\"materialboxed\" width=\"200\"";
+                // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
+                
+                if(item.volumeInfo.imageLinks){
+                     str += "src="+item.volumeInfo.imageLinks.thumbnail+">";
+                }else{
+                     str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
+                } 
+                str+= "</p></div></li>";
+         }
+        //  console.log(str);
+         $("#test1 .collapsible").append(str);
+        //  $('.collapsible').collapsible();
+        //  setTimeout(function(){
+        //      $('.collapsible').collapsible({
+        //         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        //     });
+        //  },1000);
+      });
+    }
+    else{
+        // When cookie is implemented make sure you check for that value
+    alert("joshi");
+     $("#test1").addClass("hide");
+     $("#mainDiv").removeClass("hide");
+    }
 }
 function genresType() {
     $("#mainDiv").removeClass("hide");
@@ -205,11 +244,12 @@ function people() {
 }
 $(document).ready(function () {
     main();
-  //  $("#mainDiv").addClass("show");
+    $("#test1").addClass("hide");   
     $('.slider').slider({
         full_width: false
     });
-    $('.collapsible').collapsible({
-        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
+    $('.materialboxed').materialbox();
+     $('.collapsible').collapsible({
+                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            });
 });
