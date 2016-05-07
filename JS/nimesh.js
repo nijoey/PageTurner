@@ -59,17 +59,17 @@ $('#save').on("click", function () {
 
 
 
- function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (1 * 1 * 1 * 60 * 1000));
-        var expires = "expires=" + d.toGMTString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
-    }
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (1 * 1 * 1 * 60 * 1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
 
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -85,9 +85,9 @@ function checkCookie() {
     if (user != "") {
         alert("Welcome again " + user);
     } else {
-       
-            setCookie("username", nimesh, 365);
-        }
+
+        setCookie("username", nimesh, 365);
+    }
 }
 
 
@@ -123,9 +123,9 @@ function signup() {
         success: function (data) {
             console.log(data.Attempt);
             if (data.Attempt === "success") {
-                
-                setCookie("username",name,1);
-               
+
+                setCookie("username", name, 1);
+
                 checkCookie();
                 $('#modal1').closeModal();
                 console.log("SUCCESS");
@@ -134,6 +134,7 @@ function signup() {
                 //$('#usernameTitleBar').append("<i class='material-icons right'>arrow_drop_down</i>");
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
+                booksList("Success");
             } else {
                 console.log("FAILURE");
             }
@@ -163,10 +164,10 @@ function login() {
             console.log(data.Attempt);
             if (data.Attempt == "success") {
                 alert("Succesfully Logged In");
-                
-                setCookie("username",name,1);
-                
-               
+
+                setCookie("username", name, 1);
+
+
                 checkCookie();
                 $('#modal2').closeModal();
                 //$("#loginmodal").text("Signout");
@@ -174,6 +175,7 @@ function login() {
                 $('#usernameTitleBar').text(username);
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
+                booksList("Success");
                 console.log("Success");
             }
             else {
@@ -248,66 +250,54 @@ function updateUsrDetails(username) {
 function favBooks() {
     $("#mainDiv").addClass("hide");
 }
-<<<<<<< HEAD
 function booksList(status) {
-        if(status == "Success"){
-      $("#test1").removeClass("hide");
-      $("#mainDiv").addClass("hide");
-      var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter+stephen+king";
-      $.getJSON(googleAPI, function (response) {
-         // console.log("JSON Data: " + JSON.stringify(response.items[0]));
-          var str = "";
-          for (var i = 0; i < response.items.length; i++) {
+    if (status == "Success") {
+        alert("Success");
+        $("#test1").removeClass("hide");
+        $("#mainDiv").addClass("hide");
+        var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter+stephen+king";
+        $.getJSON(googleAPI, function (response) {
+            // console.log("JSON Data: " + JSON.stringify(response.items[0]));
+            var str = "";
+            for (var i = 0; i < response.items.length; i++) {
                 var item = response.items[i];
                 str += "<li><div class=\"collapsible-header\">";
-                if(item.volumeInfo.title){
+                if (item.volumeInfo.title) {
                     str += item.volumeInfo.title;
-                }  
-                str+= "</div><div class=\"collapsible-body\"><p><img class=\"materialboxed\" width=\"200\"";
+                }
+                str += "</div><div class=\"collapsible-body\"><p><img class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
-                
-                if(item.volumeInfo.imageLinks){
-                     str += "src="+item.volumeInfo.imageLinks.thumbnail+">";
-                }else{
-                     str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
-                } 
-                str+= "</p></div></li>";
-         }
-        //  console.log(str);
-         $("#test1 .collapsible").append(str);
-        //  $('.collapsible').collapsible();
-        //  setTimeout(function(){
-        //      $('.collapsible').collapsible({
-        //         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-        //     });
-        //  },1000);
-      });
+
+                if (item.volumeInfo.imageLinks) {
+                    str += "src=" + item.volumeInfo.imageLinks.thumbnail + ">";
+                } else {
+                    str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
+                }
+                str += "</p></div></li>";
+            }
+            $("#test1 .collapsible").append(str);
+            //  $('.collapsible').collapsible();
+            //  setTimeout(function(){
+            //      $('.collapsible').collapsible({
+            //         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            //     });
+            //  },1000);
+        });
     }
-    else{
+    else {
         // When cookie is implemented make sure you check for that value
-    
-     $("#test1").addClass("hide");
-     $("#mainDiv").removeClass("hide");
+        alert("Failed");
+        $("#test1").addClass("hide");
+        $("#mainDiv").removeClass("hide");
     }
-=======
-function booksList() {
-    $("#mainDiv").removeClass("hide");
->>>>>>> f2493218e79d0c073e37c385a0440f8a15f21f62
-}
-function genresType() {
-    $("#mainDiv").removeClass("hide");
-}
-function people() {
-    $("#mainDiv").removeClass("hide");
 }
 $(document).ready(function () {
     main();
-    
-    
-  //  $("#mainDiv").addClass("show");
+    $("#test1").addClass("hide"); 
     $('.slider').slider({
         full_width: false
     });
+    $('.materialboxed').materialbox();
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
