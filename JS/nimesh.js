@@ -251,7 +251,6 @@ function favBooks() {
 }
 function booksList(status) {
     if (status == "Success") {
-        alert("Success");
         $("#test1").removeClass("hide");
         $("#mainDiv").addClass("hide");
         var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter+stephen+king";
@@ -285,7 +284,6 @@ function booksList(status) {
     }
     else {
         // When cookie is implemented make sure you check for that value
-        alert("Failed");
         $("#test1").addClass("hide");
         $("#mainDiv").removeClass("hide");
     }
