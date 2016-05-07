@@ -302,8 +302,8 @@ function booksList(status) {
         $("#mainDiv").removeClass("hide");
     }
 }
-function addBook(){
-    alert("kaboom");
+function addBook(id){
+    alert("kaboom",id);
 }
 $(document).ready(function () {
     main();
