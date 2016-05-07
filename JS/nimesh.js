@@ -167,7 +167,6 @@ function login() {
 
                 setCookie("username", name, 1);
 
-
                 checkCookie();
                 $('#modal2').closeModal();
                 //$("#loginmodal").text("Signout");
