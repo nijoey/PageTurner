@@ -17,7 +17,10 @@
   #genres_icon{
     float: right;
   }
- 
+  
+ .headings{
+   padding-left: 20px;
+ }
   
   #bagColor{
     background-color: honeydew;
