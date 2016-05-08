@@ -18,7 +18,44 @@ var URL1 = 'mongodb://localhost:27017/mydatabase'
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/" + "home.html");
 });
+//getting user details for follow
+app.get('/allusers', function(req, res) {
+  
+    MongoClient.connect(URL, function(err, db) {
+        console.log("We are connected");
+        var collection = db.collection('Signup');
+        collection.find({}).toArray(function(err, result) {
+            if(!err){
+            res.send(JSON.stringify(result));
+        }
+        });
 
+    });
+
+});
+
+//follow code
+app.post('/follow/:username', function(req, res) {
+
+    console.log("hi");
+    var userinfo = req.params.username;
+    console.log("username:" +userinfo);
+    var followuser=req.body.follow;
+    console.log(followuser);
+
+    MongoClient.connect(URL, function(err, db) {
+        console.log("We are connected");
+        var collection = db.collection('Signup');
+        collection.update({username: userinfo}, {$push: {follow:followuser}},false,true);
+
+            res.send(JSON.stringify({
+                "Attempt": "success"
+            }));
+
+
+   });
+
+});
 app.post('/books',function(req,res){
 
 bookname = req.body.bookname;

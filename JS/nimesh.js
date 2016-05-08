@@ -384,7 +384,100 @@ function genresType(){
     $("#mainDiv").addClass("hide");
     $( "#details_view" ).empty();
 }
+function detailBook(id){
+   
+}
+function follow(uname)
+{
+    var currentuser=getCookie('username');
+    var j = JSON.parse('{"follow":"' + uname + '"}');
+    console.log(j);
+    
+    $.ajax({
+        url: "http://localhost:3000/follow/" + currentuser,
+        type: "POST",
+        dataType: "json",
+        contentType: "Application/Json",
+        data: JSON.stringify(j),
+        success: function (data) {
 
+            console.log(data);
+            if (data) {
+                alert("Succesfully followed");
+
+                $('i .material-icons').text("done");
+
+                console.log("Success");
+            }
+            else {
+                alert("follow Failed");
+                console.log(" follow Failed");
+            }
+        },
+        failure: function (errMsg) {
+            alert(errMsg);
+        }
+    });
+
+}
+//follow users
+function people(){
+
+$.ajax({
+        url: "http://localhost:3000/allusers",
+        type: "GET",
+        dataType: "json",
+        contentType: "Application/Json",
+        success: function (data) {
+
+            console.log(data);
+            if (data != null) {
+                
+                $("#test3").removeClass("hide");
+                $("#mainDiv").addClass("hide");
+                $("#test3 .collection").empty();
+
+                var str= "";
+                var uname=getCookie('username');
+                console.log(uname);
+
+                for (var i = 0; i < data.length; i++) {
+
+                var item = data[i];
+                if(item.username!=uname){
+
+                str += "<li class=\"collection-item avatar col s6\"><br>";
+                
+                str += "<img src=\"images/user.png\" alt=\"no display image\" class=\"circle\">";
+
+                str+="<span class=\"title\">";
+                
+                if (item.firstname!=null||item.lastname!=null) {
+                    str += item.firstname+"  "+item.lastname;
+                }
+                str+="</span><p>";
+                str+=item.username;
+                if(item.favourite!=""){
+                str+="<br><br>Favorite Books: "+item.favourite+"</p>";}
+                str+="<a class=\"waves-effect waves-light btn right\" onClick=\"follow(\'"+item.username+"');\"><i class=\"material-icons left\"></i>follow</a><br><br></li>"
+
+                }}
+            console.log(str);
+            $("#test3 .collection").append(str);
+                console.log("Success");
+            }
+            else {
+                alert("follow list Failed");
+                console.log(" follow list Failed");
+            }
+        },
+        failure: function (errMsg) {
+            alert(errMsg);
+        }
+    });
+
+
+}
 function find(type){
     $( "#details_view" ).empty();
     var googleAPI = "https://www.googleapis.com/books/v1/volumes?q="+type;
@@ -398,7 +491,7 @@ function find(type){
                 if (item.volumeInfo.title) {
                     str += item.volumeInfo.title;
                 }
-                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><div class=\"col s6\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><div class=\"col s6\"><img id=\"bookImg\" onClick=\"detailBook(\'"+item.id+"');\" class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
 
                 if (item.volumeInfo.imageLinks) {
@@ -412,7 +505,7 @@ function find(type){
                 } else {
                     str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
                 }
-                str += "<br><br></div><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+                // str += "<br><br></div><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
             }
             console.log(str);
             $("#details .collapsible").append(str);
