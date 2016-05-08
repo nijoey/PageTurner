@@ -12,8 +12,65 @@ var username;
 var password;
 var user;
 var pwd;
-var URL = 'mongodb://127.0.0.1:27017/data3'
+var URL = 'mongodb://127.0.0.1:27017/data4'
 var URL1 = 'mongodb://localhost:27017/mydatabase'
+
+
+app.post('/update_bookshelf/:username', function (req, res) {
+    console.log("update bookshelf");
+    MongoClient.connect(URL, function (err, db) {
+
+        var userinfo = req.params.username;
+        console.log("username:" + userinfo);
+        var booktitle = req.body.title;
+        console.log("book:" + booktitle);
+        console.log("book");
+
+        books.search(booktitle, function (error, results) {
+            if (!error) {
+
+                var booklist = [];
+                results.forEach(function (element) {
+                    //  console.log(element);
+                    booklist.push(element);
+                }, this);
+                // var c= booklist[0].set("username", userinfo);
+                // console.log(booklist[0]);
+                // b.push({"username": userinfo});
+
+
+
+                if (err) return
+                var collection = db.collection('bookshelf11');
+                var l = { "username": userinfo };
+                booklist[0].l = { "username": userinfo };
+                console.log(booklist[0]);
+
+
+                collection.insert(booklist[0], function (err, result) {
+
+                });
+                //var t=booklist[0].title;
+                // collection.update({ title: t },{ $set: { username:userinfo } }, false, true)
+                // console.log(booklist[0]);
+
+
+            } else {
+                console.log(error);
+            }
+        });
+
+        console.log("We are connected");
+        var collection = db.collection('Signup');
+        collection.update({ username: userinfo }, { $push: { bookshelf: booktitle } }, false, true);
+
+        res.send(JSON.stringify({
+            "Attempt": "success"
+        }));
+
+    });
+
+});
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/" + "home.html");

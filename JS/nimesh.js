@@ -93,6 +93,24 @@ function checkCookie() {
     }
 }
 
+function addBook(name) {
+    alert(name);
+  var obj = JSON.parse('{"title" : "' + name + '"}');
+  console.log(obj);
+  
+     $.ajax({
+        url: 'http://localhost:3000/update_bookshelf/' +username,
+        type: 'POST',
+        datatype: "json",
+        contentType: "Application/Json",
+        data: JSON.stringify(obj),
+        success: function (data) {
+        },
+        error: function (error) {
+        }
+    });      
+    
+}
 
 
 
@@ -124,6 +142,7 @@ document.getElementById('search').addEventListener('keypress', function (event) 
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
                         //var itemm = "ntiesh";
+                        
                         str += "<li><div class=\"collapsible-header\">";
                         if (item.title) {
                             str += item.title;
@@ -142,7 +161,8 @@ document.getElementById('search').addEventListener('keypress', function (event) 
                         } else {
                             str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
                         }
-                        str += "<br><br></div><a onClick=\"addBook(\'" + item.id + "');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+                        // str += "</p><a onClick=\"addBook(\'"+ item.volumeInfo.title+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+                        str += "<br><br></div><a onClick=\"addBook(\'" + item.volumeInfo.title + "');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
                     }
                     console.log(str);
                     $("#test1 .collapsible").append(str);
@@ -356,7 +376,7 @@ function booksList() {
                 } else {
                     str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
                 }
-                str += "<br><br></div><a onClick=\"addBook(\'" + item.id + "');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+                str += "<br><br></div><a onClick=\"addBook(\'" + item.volumeInfo.title + "');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
             }
             console.log(str);
             $("#test1 .collapsible").append(str);
@@ -375,10 +395,7 @@ function booksList() {
         $("#mainDiv").removeClass("hide");
     }
 }
-function addBook(id) {
-    console.log(id);
-    alert(id);
-}
+
 function genresType() {
     $("#test2").removeClass("hide");
     $("#mainDiv").addClass("hide");
