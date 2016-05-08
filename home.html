@@ -1,8 +1,9 @@
 <html>
+
 <head>
   <title>PageTurner</title>
   <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="CSS/materialize.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="CSS/style.css" />
@@ -13,10 +14,10 @@
 
 </head>
 
-<body class="grey lighten-4">
+<body class="bgimg">
   <header>
     <nav>
-      <div class="nav-wrapper blue ">
+      <div class="nav-wrapper  teal darken-3 ">
         <a href="#" data-activates="nav-mob" class="button-collapse"><i class="material-icons">menu</i></a>
         <a href="#" class="brand-logo">PageTurner</a>
         <ul id="nav-web" class="right hide-on-med-and-down">
@@ -66,19 +67,17 @@
               <li><a href="#!">Sign out</a></li>
             </ul>
           </li>
-
         </ul>
-
       </div>
     </nav>
   </header>
-  <main>
+  <main class="bgimg">
     <div id="homeContent" class="home_Content">
       <!--added to separate home page & PERSONAL DETAILS-->
       <div class="row">
         <div class="col s12">
-          <ul class="tabs">
-            <li class="tab col s3 m2 l3"><a class="active" href="#test1" onclick="booksList('Failed');">Books</a>
+          <ul class="tabs grey lighten-1">
+            <li class="tab col s3 m2 l3"><a class="active" href="#test1" onclick="booksList();">Books</a>
             </li>
             <li class="tab col s3 m2 l3"><a href="#test2" onclick="genresType();">Genres</a>
             </li>
@@ -90,28 +89,43 @@
         </div>
         <div id="test1" class="col s12">
           <ul class="collapsible popout" data-collapsible="accordion">
-            <!--<li>
-              <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-              <div class="collapsible-body">
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-              <div class="collapsible-body">
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-              <div class="collapsible-body">
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>-->
           </ul>
         </div>
-        <div id="test2" class="col s12">
-
+        <div id="test2">
+          <div class="collection col s6">
+            <a href="#!" onclick="find('art');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Art</a>
+            <a href="#!" onclick="find('biography');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Biography</a>
+            <a href="#!" onclick="find('business');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Business</a>
+            <a href="#!" onclick="find('christian');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Christian</a>
+            <a href="#!" onclick="find('ebooks');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Ebooks</a>
+            <a href="#!" onclick="find('fantacy');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Fantacy</a>
+            <a href="#!" onclick="find('fiction');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Fiction</a>
+            <a href="#!" onclick="find('history');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>History</a>
+            <a href="#!" onclick="find('nonfiction');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Nonfiction</a>
+            <a href="#!" onclick="find('poetry');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Poetry</a>
+            <a href="#!" onclick="find('religion');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Religion</a>
+            <a href="#!" onclick="find('romance');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Romance</a>
+            <a href="#!" onclick="find('science');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Science</a>
+          </div>
+          <div class="collection col s6">
+            <a href="#!" onclick="find('classic');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Classics</a>
+            <a href="#!" onclick="find('contemporary');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Contemporary</a>
+            <a href="#!" onclick="find('cookbooks');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Cookbooks</a>
+            <a href="#!" onclick="find('crime');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Crime</a>
+            <a href="#!" onclick="find('horror');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Horror</a>
+            <a href="#!" onclick="find('manga');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Manga</a>
+            <a href="#!" onclick="find('music');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Music</a>
+            <a href="#!" onclick="find('mystery');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Mystery</a>
+            <a href="#!" onclick="find('paranormal');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Paranormal</a>
+            <a href="#!" onclick="find('suspense');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Suspense</a>
+            <a href="#!" onclick="find('sports');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Sports</a>
+            <a href="#!" onclick="find('spirituality');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Spirituality</a>
+            <a href="#!" onclick="find('thriller');" class="collection-item red-text text-lighten-2"><i id="genres_icon" class="material-icons blue-text text-darken-2">library_books</i>Thriller</a>
+          </div>
+          <div id="details" class="col s12">
+            <ul id="details_view" class="collapsible popout" data-collapsible="accordion">
+            </ul>
+          </div>
         </div>
         <div id="test3" class="col s12">
 
@@ -139,74 +153,21 @@
           </ul>
         </div>
       </div>
-      <div id="mainDiv">
-        <div class="slider">
-          <ul class="slides">
-            <li>
-              <img src="Images/Desert.jpg">
-              <div class="caption center-align">
-                <h3>This is our big Tagline!</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-              </div>
-            </li>
-            <li>
-              <img src="Images/Jellyfish.jpg">
-
-              <div class="caption left-align">
-                <h3>Left Aligned Caption</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-              </div>
-            </li>
-            <li>
-              <img src="Images/Lighthouse.jpg">
-
-              <div class="caption right-align">
-                <h3>Right Aligned Caption</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-              </div>
-            </li>
-            <li>
-              <img src="Images/Penguins.jpg">
-
-              <div class="caption center-align">
-                <h3>This is our big Tagline!</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-              </div>
-            </li>
-            <li>
-              <img src="Images/Tulips.jpg">
-
-              <div class="caption center-align">
-                <h3>This is our big Tagline!</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-              </div>
-            </li>
-            <li>
-              <img src="Images/Hydrangeas.jpg">
-
-              <div class="caption center-align">
-                <h3>This is our big Tagline!</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-              </div>
-            </li>
-            <li>
-              <img src="http://lorempixel.com/580/250/nature/3">
-
-              <div class="caption center-align">
-                <h3>This is our big Tagline!</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="row"></div>
+      <div id="mainDiv" class="bgimg">
+        <!--<div class="carousel carousel-slider">
+          <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/800/400/food/1"></a>
+          <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/800/400/food/2"></a>
+          <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/800/400/food/3"></a>
+          <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/800/400/food/4"></a>
+        </div>-->
+        <!--<div class="row"></div>
         <div class="row">
           <div class="col s2 blue">This div is 6-columns wide</div>
           <div class="col s8 green">
             <div class="row valign-wrapper">
               <div class="col s2">
                 <img src="Images/koala.jpg" alt="" class="circle responsive-img">
-                <!-- notice the "circle" class -->
+                 
               </div>
               <div class="col s10">
                 <span class="black-text">
@@ -217,7 +178,7 @@
             <div class="row valign-wrapper">
               <div class="col s2">
                 <img src="Images/koala.jpg" alt="" class="circle responsive-img">
-                <!-- notice the "circle" class -->
+                 
               </div>
               <div class="col s10">
                 <span class="black-text">
@@ -228,7 +189,7 @@
             <div class="row valign-wrapper">
               <div class="col s2">
                 <img src="Images/koala.jpg" alt="" class="circle responsive-img">
-                <!-- notice the "circle" class -->
+                 
               </div>
               <div class="col s10">
                 <span class="black-text">
@@ -244,7 +205,7 @@
             <div class="row valign-wrapper">
               <div class="col s2">
                 <img src="Images/Tulips.jpg" alt="" class="circle responsive-img">
-                <!-- notice the "circle" class -->
+                
               </div>
               <div class="col s10">
                 <span class="black-text">
@@ -253,7 +214,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
 
@@ -335,8 +296,8 @@
     <!--Personal details contents ends-->
   </main>
 
-  <footer class="page-footer blue">
-    <div class="container">
+  <footer class="page-footer teal darken-3">
+    <!--<div class="container">
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Footer Content</h5>
@@ -354,11 +315,11 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div>-->
     <div class="footer-copyright">
       <div class="container">
-        2016 Some Copyright Text
-        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        2016 All Rights Reserved
+        <a class="grey-text text-lighten-4 right" href="#!" id="rel">Page Turner</a>
       </div>
     </div>
   </footer>

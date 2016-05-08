@@ -12,3 +12,24 @@
     padding-left: 50px;
     padding-top: 50px;
   }
+  
+  #genres_icon{
+    float: right;
+  }
+  
+  #bagColor{
+    background-color: honeydew;
+  }
+  
+  .bgimg{
+    background-image: url('/Images/banner.jpg');
+  }
+  
+  footer.page-footer{
+    margin-top:0px;
+  }
+  
+  .row .col{
+    /*padding: 0px;*/
+    border:0px;
+  }

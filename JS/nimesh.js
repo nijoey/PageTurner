@@ -55,6 +55,9 @@ $('#save').on("click", function () {
 
 
 
+$('#rel').on("click", function () {
+    location.reload();
+});
 
 
 
@@ -134,7 +137,7 @@ function signup() {
                 //$('#usernameTitleBar').append("<i class='material-icons right'>arrow_drop_down</i>");
                 $('#usernameTitleBar').removeClass('hide');
                 getUserDetails(name);
-                booksList("Success");
+                booksList();
             } else {
                 console.log("FAILURE");
             }
@@ -187,7 +190,6 @@ function login() {
         }
     });
 }
-
 function getUserDetails(username) {
     var obj = JSON.parse('{"username":"' + username + '"}');
     $.ajax({
@@ -249,8 +251,9 @@ function updateUsrDetails(username) {
 function favBooks() {
     $("#mainDiv").addClass("hide");
 }
-function booksList(status) {
-    if (status == "Success") {
+function booksList() {
+    var user = getCookie("username");
+        if (user){
         $("#test1").removeClass("hide");
         $("#mainDiv").addClass("hide");
         var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter+stephen+king";
@@ -259,12 +262,12 @@ function booksList(status) {
             var str = "";
             for (var i = 0; i < response.items.length; i++) {
                 var item = response.items[i];
-                var itemm = "ntiesh";
+                
                 str += "<li><div class=\"collapsible-header\">";
                 if (item.volumeInfo.title) {
                     str += item.volumeInfo.title;
                 }
-                str += "</div><div class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
 
                 if (item.volumeInfo.imageLinks) {
@@ -298,14 +301,67 @@ function booksList(status) {
     }
     else {
         // When cookie is implemented make sure you check for that value
-        $("#test1").addClass("hide");
-        $("#mainDiv").removeClass("hide");
+             $("#test1").addClass("hide");
+            $("#mainDiv").removeClass("hide");
     }
 }
 function addBook(id){
-    alert("kaboom",id);
+     console.log(id);
+     alert(id);
+}
+function genresType(){
+    $("#test2").removeClass("hide");
+    $("#mainDiv").addClass("hide");
+    $( "#details_view" ).empty();
+}
+
+function find(type){
+    $( "#details_view" ).empty();
+    var googleAPI = "https://www.googleapis.com/books/v1/volumes?q="+type;
+     $.getJSON(googleAPI, function (response) {
+            // console.log("JSON Data: " + JSON.stringify(response.items[0]));
+            var str = "";
+            for (var i = 0; i < response.items.length; i++) {
+                var item = response.items[i];
+                
+                str += "<li><div class=\"collapsible-header\">";
+                if (item.volumeInfo.title) {
+                    str += item.volumeInfo.title;
+                }
+                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
+
+                if (item.volumeInfo.imageLinks) {
+                    str += "src=" + item.volumeInfo.imageLinks.thumbnail + ">";
+                } else {
+                    str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
+                }
+                str += "<p id=\"desc\">";
+                if(item.volumeInfo.description) {
+                    str += item.volumeInfo.description;
+                } else {
+                    str += "No Description";
+                }
+                if(item.id) {
+                    str += item.volumeInfo.description;
+                } else {
+                    str += "No Description";
+                }
+                str += "</p><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+            }
+            console.log(str);
+            $("#details .collapsible").append(str);
+            // onclick=\"addBook(\"" +item.id+ "\");\" 
+            //  $('.collapsible').collapsible();
+            //  setTimeout(function(){
+            //      $('.collapsible').collapsible({
+            //         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            //     });
+            //  },1000);
+        });
 }
 $(document).ready(function () {
+    $('.carousel').carousel({full_width:true});
     main();
     $("#test1").addClass("hide"); 
     $('.slider').slider({
