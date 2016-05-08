@@ -128,7 +128,7 @@ document.getElementById('search').addEventListener('keypress', function(event) {
                 if (item.title) {
                     str += item.title;
                 }
-                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><div class=\"col s6\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
 
                 if (item.thumbnail) {
@@ -136,18 +136,13 @@ document.getElementById('search').addEventListener('keypress', function(event) {
                 } else {
                     str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
                 }
-                str += "<p id=\"desc\">";
+                str += "</div><div class=\"col s6\" id=\"desc\">";
                 if(item.description) {
                     str += item.description;
                 } else {
-                    str += "No Description";
+                    str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
                 }
-                if(item.id) {
-                    str += item.description;
-                } else {
-                    str += "No Description";
-                }
-                str += "</p><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+                str += "<br><br></div><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
             }
             console.log(str);
             $("#test1 .collapsible").append(str);
@@ -336,7 +331,7 @@ function booksList() {
         if (user){
         $("#test1").removeClass("hide");
         $("#mainDiv").addClass("hide");
-        var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter+stephen+king";
+        var googleAPI = "https://www.googleapis.com/books/v1/volumes?q=harry+potter";
         $.getJSON(googleAPI, function (response) {
             // console.log("JSON Data: " + JSON.stringify(response.items[0]));
             var str = "";
@@ -347,7 +342,7 @@ function booksList() {
                 if (item.volumeInfo.title) {
                     str += item.volumeInfo.title;
                 }
-                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><div class=\"col s6\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
 
                 if (item.volumeInfo.imageLinks) {
@@ -355,18 +350,13 @@ function booksList() {
                 } else {
                     str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
                 }
-                str += "<p id=\"desc\">";
+                str += "</div><div class=\"col s6\" id=\"desc\">";
                 if(item.volumeInfo.description) {
                     str += item.volumeInfo.description;
                 } else {
-                    str += "No Description";
+                    str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
                 }
-                if(item.id) {
-                    str += item.volumeInfo.description;
-                } else {
-                    str += "No Description";
-                }
-                str += "</p><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+                str += "<br><br></div><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
             }
             console.log(str);
             $("#test1 .collapsible").append(str);
@@ -408,7 +398,7 @@ function find(type){
                 if (item.volumeInfo.title) {
                     str += item.volumeInfo.title;
                 }
-                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><div class=\"col s6\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
 
                 if (item.volumeInfo.imageLinks) {
@@ -416,18 +406,13 @@ function find(type){
                 } else {
                     str += "src=http://th01.deviantart.net/fs70/PRE/i/2013/126/1/e/nature_portrait_by_pw_fotografie-d63tx0n.jpg>";
                 }
-                str += "<p id=\"desc\">";
+                str += "</div><div class=\"col s6\" id=\"desc\">";
                 if(item.volumeInfo.description) {
                     str += item.volumeInfo.description;
                 } else {
-                    str += "No Description";
+                    str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
                 }
-                if(item.id) {
-                    str += item.volumeInfo.description;
-                } else {
-                    str += "No Description";
-                }
-                str += "</p><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
+                str += "<br><br></div><a onClick=\"addBook(\'"+item.id+"');\" class=\"waves-effect waves-light btn\">Add to Favourite</a></div></li>";
             }
             console.log(str);
             $("#details .collapsible").append(str);

@@ -11,14 +11,17 @@
   #bookImg {
     padding-left: 50px;
     padding-top: 50px;
+    padding-bottom: 50px;
   }
   
   #genres_icon{
     float: right;
   }
+ 
   
   #bagColor{
     background-color: honeydew;
+    float: left;
   }
   
   .bgimg{
