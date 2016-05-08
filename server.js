@@ -19,7 +19,9 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + "/" + "home.html");
 });
 
-bookname = "stephen king";
+app.post('/books',function(req,res){
+
+bookname = req.body.bookname;
 console.log(bookname);
 books.search(bookname, function(error, results) {
     if (!error) {
@@ -33,6 +35,7 @@ books.search(bookname, function(error, results) {
                     collection.find({}).toArray(function(err, docs) {
                         console.log(docs)
                             //db.close()
+                        res.json(results);
                     });
                 } else {
                     console.log(err);
@@ -43,6 +46,8 @@ books.search(bookname, function(error, results) {
     } else {
         console.log(error);
     }
+});
+
 });
  MongoClient.connect(URL, function(err, db) {
  app.post('/Signup', function(req, response) {
