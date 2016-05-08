@@ -113,6 +113,50 @@ app.post('/follow/:username', function(req, res) {
    });
 
 });
+
+//favourite books
+app.post('/favbookuser/:username', function(req, res) {
+
+    
+    var userinfo = req.params.username;
+    console.log("username:" +userinfo);
+    MongoClient.connect(URL, function(err, db) {
+        console.log("We are connected fav books");
+        var collection = db.collection('bookshelf11');
+       collection.find({ l: { username: userinfo } }).toArray(function(err, docs) {
+                        console.log(docs)
+                           
+                        res.send(JSON.stringify({
+                "Attempt": docs
+            }));
+                        
+                    });
+
+
+   });
+
+   
+
+   
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.post('/books',function(req,res){
 
 bookname = req.body.bookname;
