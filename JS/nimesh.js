@@ -128,7 +128,7 @@ document.getElementById('search').addEventListener('keypress', function(event) {
                 if (item.title) {
                     str += item.title;
                 }
-                str += "</div><div class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
+                str += "</div><div id=\"bagColor\" class=\"collapsible-body\"><img id=\"bookImg\" class=\"materialboxed\" width=\"200\"";
                 // if(item.volumeInfo.imageLinks){alert("hello"); console.log(item.imageLinks);}else{alert("zero");console.log(item.imageLinks);}
 
                 if (item.thumbnail) {
