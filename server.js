@@ -12,7 +12,7 @@ var username;
 var password;
 var user;
 var pwd;
-var URL = 'mongodb://127.0.0.1:27017/data4'
+var URL = 'mongodb://127.0.0.1:27017/data5'
 var URL1 = 'mongodb://localhost:27017/mydatabase'
 
 
@@ -124,10 +124,19 @@ app.post('/favbookuser/:username', function(req, res) {
         console.log("We are connected fav books");
         var collection = db.collection('bookshelf11');
        collection.find({ l: { username: userinfo } }).toArray(function(err, docs) {
-                        console.log(docs)
+                        console.log(docs.length);
+           var m;
+                      if (console.length==0)
+                          {
+                           m="failure";
+                          }
+                   else
+                       {
+                           m=docs;
+                       }   
                            
                         res.send(JSON.stringify({
-                "Attempt": docs
+                "Attempt": m
             }));
                         
                     });
@@ -210,6 +219,7 @@ books.search(bookname, function(error, results) {
             'aboutme': " ",
             'favourite': " ",
             'bookshelf': [],
+            'follow':[]
         }];
 
         var attempt;

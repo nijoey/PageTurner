@@ -11,6 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script type="text/javascript" src="JS/materialize.js"></script>
+    <script type="text/javascript" src="https://books.google.com/books/previewlib.js"></script>
+<script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
 
 </head>
 
@@ -134,24 +136,7 @@
         </div>
         <div id="test4" class="col s12">
           <ul class="collapsible popout" data-collapsible="accordion">
-            <li>
-              <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-              <div class="collapsible-body">
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-              <div class="collapsible-body">
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-              <div class="collapsible-body">
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
+            
           </ul>
         </div>
       </div>
@@ -220,74 +205,101 @@
       </div>
     </div>
 
-    <!--Personal details contents starts-->
-    <div id='personalDetails' class=" hide container profile">
-      <div class="row grey lighten-4">
+    
+      <!--Personal details contents starts-->
+    <div id='personalDetails' class=" hide container profile" style="width:auto">
+      <div class="row grey lighten-4"style="float:center">
         <form class="col s12">
-          <div class="row">
+          <div class="row" style="font-size:20px">
             <div class="container hide banner"><strong>Changes saved successfully!!!</strong></div>
             <div class="container">
-              <h3>Profile</h3></div>
-
-            <div class="attributes col s12">
-              <div class="prd_label col s4"><label>First Name:</label></div>
-              <div class="prd_val col s8">
-                <div id="fNameTxt" class="col s6"></div>
-                <div id="fNamDiv" class="hide input-field col s6"><input id="fName" type="text" class="inputVal"></div>
-                <div class="edit col s2"><a id="editFname">edit</a></div>
-              </div>
-            </div>
-
-            <div class="attributes col s12">
-              <div class="prd_label col s4"><label>Last Name:</label></div>
-              <div class="prd_val col s8">
-                <div id="lNameTxt" class="col s6"></div>
-                <div id="LNamDiv" class="hide input-field col s6"><input id="lName" type="text" class="inputVal"></div>
-                <div class="edit col s2"><a id="editLname">edit</a></div>
-              </div>
+              <h3>
+        <img  id="user" src="Images/user.png" />Profile</h3>
             </div>
 
 
-            <div class="attributes col s12">
-              <div class="prd_label col s4"><label>User Name:</label></div>
-              <div class="prd_val col s8">
-                <div id="uNameTxt" class="col s6"></div>
-                <div class="col s2"></div>
+            <div class="row">
+              <div class="attributes col s12" style="font-size:20px">
+                <div class="prd_label col s4"><label>First Name:</label></div>
+                <div class="prd_val col s8">
+                  <div id="fNameTxt" class="col s6"></div>
+                  <div id="fNamDiv" class="hide input-field col s6"><input id="fName" type="text" class="inputVal"></div>
+                  <div class="edit col s2"><a id="editFname">edit</a></div>
+                </div>
               </div>
             </div>
 
-            <div class="attributes col s12">
-              <div class="prd_label col s4"><label>Email:</label></div>
-              <div class="prd_val col s8">
-                <div id="eMailTxt" class="col s6"></div>
-                <div class="col s2"></div>
+            <div class="row">
+              <div class="attributes col s12">
+                <div class="prd_label col s4"><label>Last Name:</label></div>
+                <div class="prd_val col s8">
+                  <div id="lNameTxt" class="col s6"></div>
+                  <div id="LNamDiv" class="hide input-field col s6"><input id="lName" type="text" class="inputVal"></div>
+                  <div class="edit col s2"><a id="editLname">edit</a></div>
+                </div>
               </div>
             </div>
 
-            <div class="attributes col s12">
-              <div class="prd_label col s4"><label>About me:</label></div>
-              <div class="prd_val col s8">
-                <div id="abtMeTxt" class="col s6"></div>
-                <div id="abtMeDiv" class="hide input-field col s6"><textarea id="aboutMe" class="materialize-textarea inputVal"></textarea></div>
-                <div class="edit col s2"><a id="editAbtMe">edit</a></div>
+            <div class="row">
+              <div class="attributes col s12">
+                <div class="prd_label col s4"><label>User Name:</label></div>
+                <div class="prd_val col s8">
+                  <div id="uNameTxt" class="col s6"></div>
+                  <div class="col s2"></div>
+                </div>
               </div>
             </div>
 
-            <div class="attributes col s12">
-              <div class="prd_label col s4"><label>Favorite Books:</label></div>
-              <div class="prd_val col s8">
-                <div id="favBokTxt" class="col s6"></div>
-                <div id="favBokDiv" class="hide input-field col s6"><textarea id="favBok" class="materialize-textarea inputVal"></textarea></div>
-                <div class="edit col s2"><a id="editFavBok">edit</a></div>
+            <div class="row">
+              <div class="attributes col s12">
+                <div class="prd_label col s4"><label>Email:</label></div>
+                <div class="prd_val col s8">
+                  <div id="eMailTxt" class="col s6"></div>
+                  <div class="col s2"></div>
+                </div>
               </div>
             </div>
 
-            <div class="attributes col s12">
-              <div class="prd_save">
-                <span><a id = "backProfile"class="waves-effect waves-light btn">Back</a></span>
-                <button id="save" class="btn waves-effect waves-light disabled">Save
-                     <i class="material-icons right">send</i>
-                 </button>
+            <div class="row">
+              <div class="attributes col s12">
+                <div class="prd_label col s4"><label>About me:</label></div>
+                <div class="prd_val col s8">
+                  <div id="abtMeTxt" class="col s6"></div>
+                  <div id="abtMeDiv" class="hide input-field col s6"><textarea id="aboutMe" class="materialize-textarea inputVal"></textarea></div>
+                  <div class="edit col s2"><a id="editAbtMe">edit</a></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="attributes col s12">
+                <div class="prd_label col s4"><label>Favorite Books:</label></div>
+                <div class="prd_val col s8">
+                  <div id="favBokTxt" class="col s6"></div>
+                  <div id="favBokDiv" class="hide input-field col s6"><textarea id="favBok" class="materialize-textarea inputVal"></textarea></div>
+                  <div class="edit col s2"><a id="editFavBok">edit</a></div>
+                </div>
+              </div>
+            </div>
+            
+             <div class="row">
+              <div class="attributes col s12">
+                <div class="prd_label col s4"><label>Bookshelf:</label></div> 
+                  <div class="prd_val col s8">
+                  <div id="showuser_bshelf" class="col s6"></div>
+                  <div class="col s2"></div>
+                </div>               
+              </div>
+            </div>
+            
+            <br>
+            <div class="row">
+              <div class="attributes col s12">
+                <div class="prd_save" style="float:center">
+                  <button id="back" class="btn waves-effect waves-light" onclick="back1();" >Back</button>
+
+                  <button id="save" class="btn waves-effect waves-light disabled">Save </button>
+                </div>
               </div>
             </div>
 
@@ -295,6 +307,7 @@
         </form>
       </div>
     </div>
+    
     <!--Personal details contents ends-->
   </main>
 
@@ -360,7 +373,7 @@
             <div class="input-field col s12">
               <input id="userName" type="text" class="validate">
               <label for="userName">User Name</label>
-              <p id="errorAlert" class="hide red-text text-darken-2">Sorry! someone already took that username.</p>
+              <p id="errorAlertuname" class="hide red-text text-darken-2">Sorry! someone already took that username.</p>
             </div>
           </div>
           <div class="row">
