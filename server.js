@@ -1,21 +1,22 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+"use strict";
+var express = require("express");
+var bodyParser = require("body-parser");
 var app = express();
-var assert = require('assert');
-var books = require('google-books-search');
-var MongoClient = require('mongodb').MongoClient
+var assert = require("assert");
+var books = require("google-books-search");
+var MongoClient = require("mongodb").MongoClient;
 app.use(bodyParser.json());
-app.use(express.static('.'));
+app.use(express.static("."));
 var r = [];
 var username;
 var password;
 var user;
 var pwd;
-var URL = 'mongodb://127.0.0.1:27017/data5'
-var URL1 = 'mongodb://localhost:27017/mydatabase'
+var URL = "mongodb://127.0.0.1:27017/data5";
+var URL1 = "mongodb://localhost:27017/mydatabase";
 
 //Adds book tittle to bookshelf array in user details once user adds book to his bookshelf and entire book details along with username in bookshelf collection
-app.post('/update_bookshelf/:username', function(req, res) {
+app.post("/update_bookshelf/:username", function(req, res) {
     console.log("update bookshelf");
     MongoClient.connect(URL, function(err, db) {
         var userinfo = req.params.username;
@@ -30,8 +31,8 @@ app.post('/update_bookshelf/:username', function(req, res) {
                     booklist.push(element);
                 }, this);
 
-                if (err) return
-                var collection = db.collection('bookshelf11');
+                if (err){ return;}
+                var collection = db.collection("bookshelf11");
                 var l = {
                     "username": userinfo
                 };
@@ -39,13 +40,13 @@ app.post('/update_bookshelf/:username', function(req, res) {
                     "username": userinfo
                 };
                 console.log(booklist[0]);
-                collection.insert(booklist[0], function(err, result) {});
+                collection.insert(booklist[0], function() {});
             } else {
                 console.log(error);
             }
         });
         console.log("We are connected");
-        var collection = db.collection('Signup');
+        var collection = db.collection("Signup");
         collection.update({
             username: userinfo
         }, {
@@ -59,15 +60,15 @@ app.post('/update_bookshelf/:username', function(req, res) {
     });
 });
 
-app.get('/', function(req, res) {
+app.get("/", function(req, res) {
     res.sendFile(__dirname + "/" + "home.html");
 });
 
 //getting all registered user details for follow using Signup collection
-app.get('/allusers', function(req, res) {
+app.get("/allusers", function(req, res) {
     MongoClient.connect(URL, function(err, db) {
         console.log("We are connected");
-        var collection = db.collection('Signup');
+        var collection = db.collection("Signup");
         collection.find({}).toArray(function(err, result) {
             if (!err) {
                 res.send(JSON.stringify(result));
@@ -79,14 +80,14 @@ app.get('/allusers', function(req, res) {
 });
 
 //Adds username to follow array in user details once user had decided to follow another user in Signup Collection
-app.post('/follow/:username', function(req, res) {
+app.post("/follow/:username", function(req, res) {
     var userinfo = req.params.username;
     console.log("username:" + userinfo);
     var followuser = req.body.follow;
     console.log(followuser);
     MongoClient.connect(URL, function(err, db) {
         console.log("We are connected");
-        var collection = db.collection('Signup');
+        var collection = db.collection("Signup");
         collection.update({
             username: userinfo
         }, {
@@ -101,12 +102,12 @@ app.post('/follow/:username', function(req, res) {
 });
 
 //retrieves only those books from bookshelf collection based on users books in bookshelf using bookshelf11 collection
-app.post('/favbookuser/:username', function(req, res) {
+app.post("/favbookuser/:username", function(req, res) {
     var userinfo = req.params.username;
     console.log("username:" + userinfo);
     MongoClient.connect(URL, function(err, db) {
         console.log("We are connected fav books");
-        var collection = db.collection('bookshelf11');
+        var collection = db.collection("bookshelf11");
         collection.find({
             l: {
                 username: userinfo
@@ -114,7 +115,7 @@ app.post('/favbookuser/:username', function(req, res) {
         }).toArray(function(err, docs) {
             console.log(docs.length);
             var m;
-            if (console.length == 0) {
+            if (console.length === 0) {
                 m = "failure";
             } else {
                 m = docs;
@@ -127,20 +128,20 @@ app.post('/favbookuser/:username', function(req, res) {
 });
 
 // search book using google books api and insert it into book collection
-app.post('/books', function(req, res) {
-    bookname = req.body.bookname;
+app.post("/books", function(req, res) {
+    var bookname = req.body.bookname;
     console.log(bookname);
     books.search(bookname, function(error, results) {
         if (!error) {
             console.log(results);
             var booklist = results;
             MongoClient.connect(URL1, function(err, db) {
-                if (err) return
-                var collection = db.collection('books')
-                collection.insert(booklist, function(err, result) {
+                if (err) {return;}
+                var collection = db.collection("books");
+                collection.insert(booklist, function(err) {
                     if (!err) {
                         collection.find({}).toArray(function(err, docs) {
-                            console.log(docs)
+                            console.log(docs);
                             res.json(results);
                         });
                     } else {
@@ -156,7 +157,7 @@ app.post('/books', function(req, res) {
 
 //creates new user with unique username and save details in Signup collection
 MongoClient.connect(URL, function(err, db) {
-    app.post('/Signup', function(req, response) {
+    app.post("/Signup", function(req, response) {
         username = req.body.username;
         var firstname = req.body.firstname;
         var lastname = req.body.lastname;
@@ -164,24 +165,24 @@ MongoClient.connect(URL, function(err, db) {
         var email = req.body.email;
         console.log(username + password + firstname + lastname + email);
         var user = [{
-            'username': username,
-            'password': password,
-            'email': email,
-            'firstname': firstname,
-            'lastname': lastname,
-            'aboutme': " ",
-            'favourite': " ",
-            'bookshelf': [],
-            'follow': []
+            "username": username,
+            "password": password,
+            "email": email,
+            "firstname": firstname,
+            "lastname": lastname,
+            "aboutme": " ",
+            "favourite": " ",
+            "bookshelf": [],
+            "follow": []
         }];
         var attempt;
-        var collection = db.collection('Signup')
+        var collection = db.collection("Signup");
         register(db, function() {
-            if (r.length == 0) {
+            if (r.length === 0) {
                 console.log("DOES not Exist:" + r.length);
-                collection.insert(user, function(err, result) {
-                    collection.find().toArray(function(err, docs) {})
-                })
+                collection.insert(user, function() {
+                    collection.find().toArray(function(err, docs) {console.log(docs);});
+                });
                 attempt = "success";
             } else {
                 attempt = "failure";
@@ -196,11 +197,11 @@ MongoClient.connect(URL, function(err, db) {
 
     // register function to check if username exist already in Signup collection
     var register = function(db, callback) {
-        var cursor = db.collection('Signup').find();
+        var cursor = db.collection("Signup").find();
         cursor.each(function(err, doc) {
             assert.equal(err, null);
-            if (doc != null) {
-                if (doc.username == username) {
+            if (doc !== null) {
+                if (doc.username === username) {
                     r.push(doc);
                 }
             } else {
@@ -211,11 +212,10 @@ MongoClient.connect(URL, function(err, db) {
 });
 
 //login function to check if user exist with particular username and password
-app.post('/login', function(req, res) {
+app.post("/login", function(req, res) {
     MongoClient.connect(URL, function(err, db) {
         console.log("We are connected");
-        var collection = db.collection('Signup');
-        var cursor = collection.find();
+        var collection = db.collection("Signup");
         user = req.body.username;
         pwd = req.body.password;
         var attempt;
@@ -223,13 +223,13 @@ app.post('/login', function(req, res) {
             username: user,
             password: pwd
         }, function(err, document) {
-            if (document != null) {
+            if (document !== null) {
                 attempt = "";
-                console.log("success")
+                console.log("success");
                 attempt = "success";
             } else {
                 attempt = "";
-                console.log("failure")
+                console.log("failure");
                 attempt = "failure";
             }
             res.send(JSON.stringify({
@@ -240,14 +240,14 @@ app.post('/login', function(req, res) {
 });
 
 //Gets all user details from Signup collection based on username 
-app.get('/userinfo/:userinfo', function(req, res) {
-    MongoClient.connect(URL, function(err, db) {
+app.get("/userinfo/:userinfo", function(req, res) {
+    MongoClient.connect(URL, function() {
         var userinfo = req.params.userinfo;
         console.log("username:" + userinfo);
         console.log(userinfo);
         MongoClient.connect(URL, function(err, db) {
             console.log("We are connected");
-            var collection = db.collection('Signup');
+            var collection = db.collection("Signup");
             collection.findOne({
                 username: userinfo,
             }, function(err, document) {
@@ -261,8 +261,8 @@ app.get('/userinfo/:userinfo', function(req, res) {
 });
 
 //Updates user information in Signup collection based on username
-app.post('/update/:username', function(req, res) {
-    MongoClient.connect(URL, function(err, db) {
+app.post("/update/:username", function(req, res) {
+    MongoClient.connect(URL, function() {
         var userinfo = req.params.username;
         console.log("username:" + userinfo);
         var first = req.body.firstname;
@@ -271,8 +271,8 @@ app.post('/update/:username', function(req, res) {
         var favourite = req.body.favourite;
         console.log("details" + first + last + about + favourite);
         MongoClient.connect(URL, function(err, db) {
-            console.log("We are connected");
-            var collection = db.collection('Signup');
+            console.log(db +"We are connected");
+            var collection = db.collection("Signup");
             collection.update({
                 username: userinfo
             }, {
