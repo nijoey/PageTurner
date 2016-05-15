@@ -1,10 +1,10 @@
+"use strict";
+
 /* All the on click events that occur in the application */
 var main = function () {
-    
 
-    var username;
     $("#loginmodal").on("click", function () {
-        $('#modal2').openModal();
+        $("#modal2").openModal();
         $("#log").on("click", function () {
             login();
         });
@@ -12,59 +12,59 @@ var main = function () {
 
     $("#newusermodal").on("click", function () {
 
-        $('#modal1').openModal();
+        $("#modal1").openModal();
         $("#reg").on("click", function () {
             signup();
         });
     });
 
-    $('#profile').on("click", function () {
-        $('#homeContent').addClass('hide');
+    $("#profile").on("click", function () {
+        $("#homeContent").addClass("hide");
         $("#mainDiv").removeClass("hide");
-        $('#personalDetails').removeClass('hide');
+        $("#personalDetails").removeClass("hide");
     });
 
-    $('#editFname').on("click", function () {
-        $('#fNameTxt').addClass("hide");
-        $('#fNamDiv').removeClass("hide");
+    $("#editFname").on("click", function () {
+        $("#fNameTxt").addClass("hide");
+        $("#fNamDiv").removeClass("hide");
     });
 
-    $('#editLname').on("click", function () {
-        $('#lNameTxt').addClass("hide");
-        $('#LNamDiv').removeClass("hide");
+    $("#editLname").on("click", function () {
+        $("#lNameTxt").addClass("hide");
+        $("#LNamDiv").removeClass("hide");
     });
 
-    $('#editAbtMe').on("click", function () {
-        $('#abtMeTxt').addClass("hide");
-        $('#abtMeDiv').removeClass("hide");
+    $("#editAbtMe").on("click", function () {
+        $("#abtMeTxt").addClass("hide");
+        $("#abtMeDiv").removeClass("hide");
     });
 
-    $('#editFavBok').on("click", function () {
-        $('#favBokTxt').addClass("hide");
-        $('#favBokDiv').removeClass("hide");
+    $("#editFavBok").on("click", function () {
+        $("#favBokTxt").addClass("hide");
+        $("#favBokDiv").removeClass("hide");
     });
 
-    $('#signout').on("click", function () {
-        var currentuser = getCookie('username');
+    $("#signout").on("click", function () {
+        var currentuser = getCookie("username");
         console.log("currentuser" + currentuser);
         deletecookie(currentuser);
-        location.reload(true)
+        location.reload(true);
         console.log("currentuser" + currentuser);
     });
 
     $(".dropdown-button").dropdown({ hover: false });
 };
 
-$('#save').on("click", function () {
+$("#save").on("click", function () {
     updateUsrDetails(username);
 });
 
-$('#rel').on("click", function () {
+$("#rel").on("click", function () {
     location.reload();
 });
 
 /* This function will set the cookie value */
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue) {
     var d = new Date();
     d.setTime(d.getTime() + (1 * 1 * 20 * 60 * 1000));
     var expires = "expires=" + d.toGMTString();
@@ -74,13 +74,13 @@ function setCookie(cname, cvalue, exdays) {
 /* This function will get the cookie value */
 function getCookie(cname) {
     var name = cname + "=";
-    var ca = document.cookie.split(';');
+    var ca = document.cookie.split(";");
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === " ") {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
@@ -97,27 +97,28 @@ function deletecookie(name) {
 function addBook(name) {
     var obj = JSON.parse('{"title" : "' + name + '"}');
     console.log(obj);
-    var u = getCookie('username');
+    var u = getCookie("username");
     $.ajax({
-        url: 'http://localhost:3000/update_bookshelf/' + u,
-        type: 'POST',
+        url: "http://localhost:3000/update_bookshelf/" + u,
+        type: "POST",
         datatype: "json",
         contentType: "Application/Json",
         data: JSON.stringify(obj),
-        success: function (data) {
+        success: function () {
             getUserDetails(u);
         },
         error: function (error) {
+            console.log(error);
         }
     });
 
 }
 
 /* The search functionality */
-document.getElementById('search').addEventListener('keypress', function (event) {
-    if (event.keyCode == 13) {
+document.getElementById("search").addEventListener("keypress", function (event) {
+    if (event.keyCode === 13) {
         event.preventDefault();
-        var bookname = $('#search').val();
+        var bookname = $("#search").val();
         var obj = JSON.parse('{"bookname" :"' + bookname + '"}');
         $.ajax({
             url: "http://localhost:3000/books",
@@ -127,7 +128,7 @@ document.getElementById('search').addEventListener('keypress', function (event) 
             data: JSON.stringify(obj),
             success: function (data) {
                 console.log(data);
-                if (data != null) {
+                if (data !== null) {
 
                     console.log("SUCCESS");
 
@@ -155,10 +156,12 @@ document.getElementById('search').addEventListener('keypress', function (event) 
                         } else {
                             str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
                         }
-                        if (item.averageRating == undefined) {
+                        if (item.averageRating === undefined) {
                             item.averageRating = 0;
                         }
-                        str += "<br><br></div><p>Average Rating: " + item.averageRating + "</p><a onClick=\"addBook(\'" + item.title + "');\" class=\"waves-effect waves-light btn\">Add to BOOKSHELF</a></div></li>"
+                        str += "<br><br></div><p>Average Rating: " + item.averageRating + "</p><a onClick=\"addBook(\'" + item.title + "');\" class=\"waves-effect waves-light btn\">Add to BOOKSHELF</a><br><br><br>";
+                        str += "<a target=\"_blank\" href=\'" + item.previewLink + "'\ class=\"waves-effect waves-light btn \">Preview</a><br><br>"
+                        str += "<br><a target=\"_blank\" href=\'" + item.infoLink + "'\>More Info</a><br><br></div></li>"
                     }
                     console.log(str);
                     $("#test1 .collapsible").append(str);
@@ -167,6 +170,7 @@ document.getElementById('search').addEventListener('keypress', function (event) 
                 }
             },
             failure: function (errMsg) {
+                console.log(errMsg);
             }
         });
 
@@ -182,7 +186,7 @@ function signup() {
     var pwd = document.getElementById("password").value;
     var j = JSON.parse('{"username":"' + name + '","password":"' + pwd + '","firstname":"' + fname + '","lastname":"' + lname + '","email":"' + email + '"}');
     console.log(j);
-    $('#userName').val("   ");
+    $("#userName").val("   ");
     $("#firstName").val("");
     $("#lastName").val("");
     $("#emailId").val("");
@@ -196,13 +200,13 @@ function signup() {
         success: function (data) {
             console.log(data.Attempt);
             if (data.Attempt === "success") {
-                setCookie("username", name, 1);
-                $('#modal1').closeModal();
+                setCookie("username", name);
+                $("#modal1").closeModal();
                 console.log("SUCCESS");
-                $('#newusermodal, #loginmodal').addClass('hide');
-                $('#usernameTitleBar').text(name);
-                $('#usernameTitleBar').removeClass('hide');
-                var u = getCookie('username');
+                $("#newusermodal, #loginmodal").addClass("hide");
+                $("#usernameTitleBar").text(name);
+                $("#usernameTitleBar").removeClass("hide");
+                var u = getCookie("username");
                 getUserDetails(u);
                 booksList();
             } else {
@@ -221,8 +225,8 @@ function login() {
     var pwd = document.getElementById("sipassword").value;
     var j = JSON.parse('{"username":"' + name + '","password":"' + pwd + '"}');
     console.log(j);
-    username = name;
-    $('#siuserName').val("   ");
+    var username = name;
+    $("#siuserName").val("   ");
     $("#sipassword").val("");
     $.ajax({
         url: "http://localhost:3000/login",
@@ -232,15 +236,15 @@ function login() {
         data: JSON.stringify(j),
         success: function (data) {
             console.log(data.Attempt);
-            if (data.Attempt == "success") {
+            if (data.Attempt === "success") {
                 alert("Succesfully Logged In");
-                setCookie("username", name, 1);
-                name = getCookie('username');
+                setCookie("username", name);
+                name = getCookie("username");
                 console.log("second time" + name);
-                $('#modal2').closeModal();
-                $('#newusermodal, #loginmodal').addClass('hide');
-                $('#usernameTitleBar').text(username);
-                $('#usernameTitleBar').removeClass('hide');
+                $("#modal2").closeModal();
+                $("#newusermodal, #loginmodal").addClass("hide");
+                $("#usernameTitleBar").text(username);
+                $("#usernameTitleBar").removeClass("hide");
                 getUserDetails(name);
                 booksList("Success");
                 console.log("Success");
@@ -260,12 +264,12 @@ function login() {
 function getUserDetails(username) {
     var obj = JSON.parse('{"username":"' + username + '"}');
     $.ajax({
-        url: 'http://localhost:3000/userinfo/' + username,
-        type: 'GET',
+        url: "http://localhost:3000/userinfo/" + username,
+        type: "GET",
         dataType: "JSON",
         contentType: "Application/json",
         success: function (data) {
-            if (data != "") {
+            if (data !== "") {
                 console.log(data.Attempt);
                 var firstName = data.Attempt.firstname;
                 var lastName = data.Attempt.lastname;
@@ -279,16 +283,16 @@ function getUserDetails(username) {
                     bookshelf[i] = data.Attempt.bookshelf[i];
                 }
                 console.log("b" + bookshelf);
-                $('#fNameTxt').text(firstName);
-                $('#fName').val(firstName);
-                $('#lNameTxt').text(lastName);
-                $('#lName').val(lastName);
-                $('#uNameTxt').text(userName);
-                $('#eMailTxt').text(email);
-                $('#abtMeTxt').text(abtMe);
-                $('#aboutMe').val(abtMe);
-                $('#favBokTxt').text(favBok);
-                $('#favBok').val(favBok);
+                $("#fNameTxt").text(firstName);
+                $("#fName").val(firstName);
+                $("#lNameTxt").text(lastName);
+                $("#lName").val(lastName);
+                $("#uNameTxt").text(userName);
+                $("#eMailTxt").text(email);
+                $("#abtMeTxt").text(abtMe);
+                $("#aboutMe").val(abtMe);
+                $("#favBokTxt").text(favBok);
+                $("#favBok").val(favBok);
                 s += "<ol>";
                 for (var i = 0; i < data.Attempt.bookshelf.length; i++) {
                     s += "<li>" + bookshelf[i] + "</li>";
@@ -297,7 +301,7 @@ function getUserDetails(username) {
                 $("#showuser_bshelf").append(s);
             }
         },
-        error: function (error) {
+        error: function () {
             console.log("Error getUserDetails!!");
         }
     });
@@ -306,22 +310,24 @@ function getUserDetails(username) {
 /* Updates the user values from the Profile Page */
 function updateUsrDetails(username) {
     alert("updateUsrDetails:" + username);
-    var firstName = $('#fName').val();
-    var lastName = $('#lName').val();
-    var userName = $('#uNameTxt').val();
-    var email = $('#eMailTxt').val();
-    var abtMe = $('#aboutMe').val();
-    var favBok = $('#favBok').val();
+    var firstName = $("#fName").val();
+    var lastName = $("#lName").val();
+    var userName = $("#uNameTxt").val();
+    var email = $("#eMailTxt").val();
+    var abtMe = $("#aboutMe").val();
+    var favBok = $("#favBok").val();
     var obj = JSON.parse('{"firstname" : "' + firstName + '","lastname" : "' + lastName + '","aboutme" : "' + abtMe + '","favourite" : "' + favBok + '"}');
     $.ajax({
-        url: 'http://localhost:3000/update/' + username,
-        type: 'POST',
+        url: "http://localhost:3000/update/" + username,
+        type: "POST",
         datatype: "json",
         contentType: "Application/Json",
         data: JSON.stringify(obj),
         success: function (data) {
+            console.log(data);
         },
         error: function (error) {
+            console.log(error);
         }
     });
 
@@ -330,7 +336,7 @@ function updateUsrDetails(username) {
 /* Displays the list of books according to the user login */
 function favBooks() {
     $("#mainDiv").addClass("hide");
-    var currentuser = getCookie('username');
+    var currentuser = getCookie("username");
     $.ajax({
         url: "http://localhost:3000/favbookuser/" + currentuser,
         type: "POST",
@@ -412,7 +418,7 @@ function booksList() {
             str += "<a target=\"_blank\" href=\'" + item.volumeInfo.previewLink + "'\ class=\"waves-effect waves-light btn waves-light blue darken-4\">Preview</a><br>"
             str += "<a target=\"_blank\" href=\'" + item.volumeInfo.infoLink + "'\>More Info</a><br><br>"
             if (user) {
-                str += "<br><br><a onClick=\"addBook(\'" + item.volumeInfo.title + "');\" class=\"waves-effect waves-light btn waves-light blue darken-4\">Add to BOOKSHELF</a><br><br></div></li>"
+                str += "<br><br><a onClick=\"addBook(\'" + item.volumeInfo.title + "');\" class=\"waves-effect waves-light btn waves-light blue darken-4\">Add to BOOKSHELF</a><br><br></div></li>";
             }
         }
         console.log(str);
@@ -429,7 +435,7 @@ function genresType() {
 
 /* Allows the user to follow another user */
 function follow(uname) {
-    var currentuser = getCookie('username');
+    var currentuser = getCookie("username");
     var j = JSON.parse('{"follow":"' + uname + '"}');
     console.log(j);
     $.ajax({
@@ -442,9 +448,9 @@ function follow(uname) {
             console.log(data);
             if (data) {
                 alert("Succesfully followed");
-                $('#button' + uname).addClass("disabled");
-                $('#shelf' + uname).removeClass("hide")
-                $('#btn-follow' + uname).text("done");
+                $("#button" + uname).addClass("disabled");
+                $("#shelf" + uname).removeClass("hide");
+                $("#btn-follow" + uname).text("done");
                 console.log("Success");
             } else {
                 alert("follow Failed");
@@ -459,8 +465,8 @@ function follow(uname) {
 
 /* Back button functionality which is on Profile Page */
 function back1() {
-    $('#personalDetails').addClass("hide");
-    $('#homeContent').removeClass("hide");
+    $("#personalDetails").addClass("hide");
+    $("#homeContent").removeClass("hide");
 }
 
 /* This function will get all the users which one can follow and already has followed*/
@@ -480,29 +486,29 @@ function people() {
             success: function (data) {
                 var data2 = data;
                 console.log(data);
-                if (data != null) {
-                    var uname = getCookie('username'); //current user
+                if (data !== null) {
+                    var uname = getCookie("username"); //current user
                     console.log(uname);
                     var flag = false;
                     //in that list all users should be seen except current user...so checking that in the if
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
-                        if (item.username != uname) {
+                        if (item.username !== uname) {
                             str += "<li class=\"collection-item avatar people col s6 offset-s3\"><br>";
                             str += "<img src=\"Images/user.png\" alt=\"no display image\" class=\"circle\">";
                             str += "<span class=\"title\">";
-                            if (item.firstname != null || item.lastname != null) {
+                            if (item.firstname !== null || item.lastname !== null) {
                                 str += item.firstname + "  " + item.lastname;
                             }
                             str += "</span><p>";
                             str += item.username;
-                            if (item.favourite != "") {
+                            if (item.favourite !== "") {
                                 str += "<br><br>Favorite Books: " + item.favourite + "</p>";
                             }
                             var tempdetails = "";
                             //checking if which user already follows, so that i can disable follow button
                             for (var k = 0; k < data2.length; k++) {
-                                if (data2[k].username == uname) {
+                                if (data2[k].username === uname) {
                                     console.log(data2[k]);
                                     console.log(data2[k].follow.length);
                                     tempdetails = data2[k].follow;
@@ -511,7 +517,7 @@ function people() {
                             }
                             var flag = false;
                             for (var j = 0; j < tempdetails.length; j++) {
-                                if (item.username == tempdetails[j]) {
+                                if (item.username === tempdetails[j]) {
                                     str += "<br><br><div id=\"shelf" + item.username + "\" class=\"show\">Bookshelf: " + item.bookshelf + "</div></p>";
                                     str += "<a id=\"button" + item.username + "\" class=\"disabled waves-effect waves-light btn right\"><i id=\"btn-follow" + item.username + "\" class=\"material-icons left\">done</i>follow</a><br><br></li>";
                                     flag = true;
@@ -519,7 +525,7 @@ function people() {
                                     break;
                                 }
                             }
-                            if (flag != true || tempdetails.length == 0) {
+                            if (flag !== true || tempdetails.length === 0) {
                                 str += "<br><br><div id=\"shelf" + item.username + "\" class=\"hide\">Bookshelf: " + item.bookshelf + "</div></p>";
                                 str += "<a id=\"button" + item.username + "\" class=\"waves-effect waves-light btn right\" onClick=\"follow(\'" + item.username + "');\"><i id=\"btn-follow" + item.username + "\" class=\"material-icons left\"></i>follow</a><br><br></li>";
                                 console.log("not following");
@@ -570,7 +576,7 @@ function find(type) {
             } else {
                 str += "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
             }
-            if (item.volumeInfo.averageRating == undefined) {
+            if (item.volumeInfo.averageRating === undefined) {
                 item.volumeInfo.averageRating = 0;
             }
             str += "<p>Average Rating: " + item.volumeInfo.averageRating + "</p>"
@@ -586,15 +592,15 @@ function find(type) {
 }
 
 $(document).ready(function () {
-    var m = getCookie('username');
+    var m = getCookie("username");
     main();
     $("#test1").addClass("hide");
     /* Initialization of all the Javascript classes of Matelializecss.*/
-    $('.slider').slider({
+    $(".slider").slider({
         full_width: false
     });
-    $('.materialboxed').materialbox();
-    $('.collapsible').collapsible({
-        accordion: false 
+    $(".materialboxed").materialbox();
+    $(".collapsible").collapsible({
+        accordion: false
     });
 });
